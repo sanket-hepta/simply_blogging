@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Simply Blogging | Login</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,500;0,600;0,700;0,800;1,100;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+        <div class="container">
+
+            <div class="header_logo">
+                <a class="navbar-brand font-weight-bold text-uppercase" href="index.html">Simply Blogging</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="post.html">Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="login" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="section pt-5 pb-0">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-7 text-center">
+                    <h2 class="heading">Login</h2>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <div class="alert alert-success d-none" id="success_message"></div>
+                    <div class="alert alert-danger d-none" id="error_message"></div>
+
+                    <form action="javascript:;" method="post" name="login_form" id="login_form" class="login-validation row" onsubmit="save_form()" novalidate>
+
+                        <div class="col-md-12">
+                            <input class="form-control" value="admin" type="text" name="username" id="username" placeholder="Username*" required>
+                            <p class="invalid-feedback">Username field cannot be blank!</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <input class="form-control" value="admin123" type="password" name="password" id="password" placeholder="Password*" required>
+                            <p class="invalid-feedback">Password field cannot be blank!</p>
+                        </div>
+
+                        <div class="form-button mt-3 mb-5" style="padding-left: 15px;">
+                            <button id="submit" type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <strong>Sample Login Credentials:</strong>
+
+                    <p class="pt-4">
+                        <strong>Username: </strong>admin<br>
+                        <strong>Password: </strong>admin123
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="card-footer">
+        <p class="text-center" style="line-height: 38px;">Copyright ©2022 All rights reserved</p>
+    </footer>
+
+    <!-- <img src="https://via.placeholder.com/300?text=Visit+Blogging.com+Now" /> -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        (function () {
+            'use strict'
+            const forms = document.querySelectorAll('.login-validation')
+            Array.from(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })();
+
+        function save_form(){
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            var users = [
+                {
+                    "name":"Admin",
+                    "username":"admin",
+                    "password":"admin123"
+                }
+            ]
+                
+            var error = 0;
+
+            users.forEach(function(user){
+                if(user.username == username && user.password == password){
+                    error = 0;
+                    localStorage.setItem("lms_username", user.name);
+                    window.location.href = 'post.html';
+                }else{
+                    error = 1;
+                }
+            });
+
+            if(error == 1){
+                document.getElementById("error_message").innerHTML = "Invalid username or password.";
+                document.getElementById("error_message").classList.remove("d-none");
+                return false;
+            }
+            
+        }
+    </script>
+</body>
+</html>
